@@ -1,0 +1,472 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka One', 'Sniglet', 'Comic Sans MS', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle, #4fc3f7 0%, #1565c0 100%);
+    padding: 20px;
+}
+
+/* CONTENEDOR PRINCIPAL AZUL */
+.tablero-juego {
+    background-color: #29b6f6;
+    border: 6px solid #0d47a1;
+    border-radius: 32px;
+    padding: 25px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 15px 0px #0a3272, 0 20px 25px rgba(0,0,0,0.3);
+}
+
+/* HEADER Y TÍTULO TRIDIMENSIONAL */
+.header-juego {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.titulo-principal {
+    font-size: 3rem;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 
+        -3px -3px 0 #0d47a1,  
+         3px -3px 0 #0d47a1,
+        -3px  3px 0 #0d47a1,
+         3px  3px 0 #0d47a1,
+         0px  8px 0px #ff8f00;
+}
+
+.frase-motivadora {
+    background-color: #4caf50;
+    color: white;
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    border: 2px dashed #fff;
+    margin-top: 5px;
+}
+
+/* DISTRIBUCIÓN EN 3 COLUMNAS */
+.cuerpo-juego {
+    display: grid;
+    grid-template-columns: 240px 1fr 200px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* COMPORTAMIENTO COMÚN DE PANELES */
+.panel-lateral, .panel-central {
+    background: #fff8e1; /* Color crema suave */
+    border: 4px solid #0d47a1;
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.titulo-seccion {
+    background: #ffb74d;
+    color: #fff;
+    padding: 8px;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    border: 2px solid #e65100;
+}
+
+.titulo-seccion.azul {
+    background: #5c6bc0;
+    border-color: #1a237e;
+}
+
+/* COLUMNA IZQUIERDA: BOTONES DE DIFICULTAD */
+.opciones-dificultad {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-dif {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 16px;
+    border: 3px solid #666;
+    cursor: pointer;
+    text-align: left;
+    font-weight: bold;
+    color: #fff;
+}
+
+.btn-dif span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+.btn-dif.facil { background: #8bc34a; border-color: #33691e; box-shadow: 0 4px 0 #33691e; }
+.btn-dif.medio { background: #ffb74d; border-color: #e65100; box-shadow: 0 4px 0 #e65100; }
+.btn-dif.dificil { background: #ef5350; border-color: #b71c1c; box-shadow: 0 4px 0 #b71c1c; }
+
+.btn-dif:active, .btn-dif.activo {
+    transform: translateY(3px);
+    box-shadow: none !important;
+}
+
+/* BOTÓN INICIAR Y COMPROBAR */
+#btn-iniciar, #btn-comprobar {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.4rem;
+    color: white;
+    background: #4caf50;
+    border: 3px solid #1b5e20;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #1b5e20;
+}
+
+#btn-iniciar:active, #btn-comprobar:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #1b5e20;
+}
+
+/* COLUMNA CENTRAL: PANTALLA JUEGO */
+.panel-central {
+    text-align: center;
+}
+
+.etiqueta-nivel {
+    background: #3f51b5;
+    color: white;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.instruccion {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.palabra-pantalla {
+    background: #c5cae9;
+    border: 3px solid #3f51b5;
+    border-radius: 16px;
+    font-size: 3rem;
+    color: #1a237e;
+    padding: 15px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.input-grupo {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.mini-etiqueta {
+    background: #3f51b5;
+    color: white;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    border-radius: 5px 5px 0 0;
+    margin-left: 10px;
+}
+
+.input-grupo input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border: 3px solid #9fa8da;
+    border-radius: 12px;
+    text-align: center;
+    outline: none;
+}
+
+/* COLUMNA DERECHA: MARCADORES */
+.marcador {
+    background: white;
+    border: 3px solid #cbd5e0;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.marcador strong { font-size: 1.4rem; }
+.marcador.aciertos { border-color: #8bc34a; color: #33691e; }
+.marcador.errores { border-color: #ef5350; color: #b71c1c; }
+
+.info-progreso {
+    margin-top: 15px;
+    text-align: center;
+    color: #3f51b5;
+}
+
+.numero-progreso {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+    line-height: 1;
+}
+
+/* FOOTER: ESFERAS DE AVANCE */
+.footer-juego {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.progreso-esferas {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.esfera {
+    width: 35px;
+    height: 35px;
+    background: white;
+    border: 3px solid #90caf9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #90caf9;
+}
+
+.esfera.completada {
+    background: #8bc34a;
+    border-color: #33691e;
+    color: white;
+}
+
+.esfera.activa {
+    background: #3f51b5;
+    border-color: #1a237e;
+    color: white;
+    transform: scale(1.15);
+}
+
+.banner-inferior {
+    background: #fff8e1;
+    border: 3px solid #ffb74d;
+    display: inline-block;
+    padding: 8px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    color: #e65100;
+}
+
+/* RESPONSIVO */
+@media (max-width: 850px) {
+    .cuerpo-juego {
+        grid-template-columns: 1fr;
+    }
+}
+/* ==========================================================================
+   MEDIA QUERIES - RESPONSIVO ADAPTABLE PARA TODOS LOS DISPOSITIVOS
+   ========================================================================== */
+
+/* 1. TABLETAS GRANDES / PORTÁTILES CHICAS (Menos de 1024px) */
+@media (max-width: 1024px) {
+    .tablero-juego {
+        max-width: 90%;
+        padding: 20px;
+    }
+    
+    .cuerpo-juego {
+        grid-template-columns: 200px 1fr 180px; /* Columnas laterales más compactas */
+        gap: 15px;
+    }
+
+    .titulo-principal {
+        font-size: 2.5rem;
+    }
+}
+
+/* 2. TABLETAS EN VERTICAL / MEDIANAS (Menos de 850px) */
+@media (max-width: 850px) {
+    /* Cambia a 2 columnas para no apretar el juego */
+    .cuerpo-juego {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    /* El panel central de juego se estira por completo arriba */
+    .panel-central {
+        grid-column: span 2;
+        order: 1; /* Primero el área de juego */
+    }
+
+    .panel-izquierdo {
+        order: 2; /* Dificultades abajo a la izquierda */
+    }
+
+    .panel-derecho {
+        order: 3; /* Puntajes abajo a la derecha */
+    }
+}
+
+/* 3. CELULARES GRANDES / VISTA HORIZONTAL (Menos de 600px) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .tablero-juego {
+        max-width: 100%;
+        padding: 15px;
+        border-width: 4px;
+        border-radius: 24px;
+    }
+
+    .titulo-principal {
+        font-size: 1.8rem;
+        text-shadow: 
+            -2px -2px 0 #0d47a1,  
+             2px -2px 0 #0d47a1,
+            -2px  2px 0 #0d47a1,
+             2px  2px 0 #0d47a1,
+             0px  5px 0px #ff8f00;
+    }
+
+    .frase-motivadora {
+        font-size: 0.9rem;
+        padding: 4px 15px;
+    }
+
+    /* Todo pasa a una sola columna vertical */
+    .cuerpo-juego {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* ORDEN MÓVIL: Central -> Marcadores -> Dificultad */
+    .panel-central {
+        grid-column: span 1;
+        order: 1;
+        padding: 15px;
+    }
+
+    .panel-derecho {
+        order: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Coloca aciertos y errores lado a lado */
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .panel-derecho .titulo-seccion {
+        grid-column: span 2;
+        margin-bottom: 5px;
+    }
+
+    .info-progreso {
+        grid-column: span 2;
+        margin-top: 5px;
+    }
+
+    .panel-izquierdo {
+        order: 3;
+        padding: 15px;
+    }
+
+    /* Distribución horizontal de los botones de dificultad */
+    .opciones-dificultad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .btn-dif {
+        padding: 8px 4px;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .btn-dif span {
+        display: none; /* Oculta descripciones largas como "Palabras sencillas" */
+    }
+
+    /* Ajustes de escala en el área de juego */
+    .palabra-pantalla {
+        font-size: 2.2rem;
+        padding: 10px;
+    }
+
+    .input-grupo input {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+
+    #btn-comprobar, #btn-iniciar {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    /* Control de las 10 esferas numéricas */
+    .progreso-esferas {
+        flex-wrap: wrap; /* Permite que bajen fluidamente en 2 filas si es necesario */
+        gap: 6px;
+    }
+
+    .esfera {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+        border-width: 2px;
+    }
+
+    .banner-inferior {
+        font-size: 0.85rem;
+        padding: 6px 15px;
+    }
+}
+
+/* 4. CELULARES PEQUEÑOS (Menos de 375px - Ej. iPhone SE) */
+@media (max-width: 375px) {
+    .titulo-principal {
+        font-size: 1.5rem;
+    }
+
+    .palabra-pantalla {
+        font-size: 1.8rem;
+    }
+
+    .opciones-dificultad {
+        gap: 4px;
+    }
+
+    .btn-dif {
+        font-size: 0.75rem;
+        padding: 6px 2px;
+    }
+
+    .esfera {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+    }
+}
