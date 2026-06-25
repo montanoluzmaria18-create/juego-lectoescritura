@@ -1,0 +1,104 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Lectoescritura</title>
+    <!-- Fuente tipo cómic/infantil desde Google Fonts -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="js/JS.js" defer></script>
+</head>
+<body>
+
+    <!-- Contenedor principal de todo el tablero del juego -->
+    <div class="tablero-juego">
+        
+        <!-- TÍTULO SUPERIOR -->
+        <header class="header-juego">
+            <h1 class="titulo-principal">JUEGO DE LECTOESCRITURA</h1>
+            <p class="frase-motivadora">¡Escribe la palabra correcta!</p>
+        </header>
+
+        <div class="cuerpo-juego">
+            
+            <!-- COLUMNA IZQUIERDA: DIFICULTAD -->
+            <aside class="panel-lateral panel-izquierdo">
+                <h3 class="titulo-seccion azul">ELIGE DIFICULTAD</h3>
+                
+                <div class="opciones-dificultad">
+                    <button class="btn-dif facil activo" data-url="NivelFacil.html">
+                        <span class="estrella">⭐</span> FÁCIL <span>Palabras sencillas</span>
+                    </button>
+                    <button class="btn-dif medio" data-url="NivelMedio.html">
+                        <span class="icono">🎒</span> MEDIO <span>Un poco más difícil</span>
+                    </button>
+                    <button class="btn-dif dificil" data-url="NivelDificil.html">
+                        <span class="icono">🚀</span> DIFÍCIL <span>¡Para campeones!</span>
+                    </button>
+                </div>
+
+                <button id="btn-iniciar">INICIAR</button>
+            </aside>
+
+            <!-- COLUMNA CENTRAL: ÁREA DE JUEGO -->
+            <main class="panel-central">
+                <div class="etiqueta-nivel">⭐ NIVEL: FÁCIL</div>
+                
+                <p class="instruccion">Escribe la palabra correcta:</p>
+                
+                <!-- Palabra ejemplo en el recuadro azul -->
+                <div class="palabra-pantalla" id="palabra-pantalla">havion</div>
+
+                <div class="input-grupo">
+                    <span class="mini-etiqueta">Escribe aquí:</span>
+                    <input type="text" id="palabra-usuario" placeholder="Escribe la palabra correcta...">
+                </div>
+
+                <button id="btn-comprobar">✔ COMPROBAR</button>
+            </main>
+
+            <!-- COLUMNA DERECHA: PUNTAJE -->
+            <aside class="panel-lateral panel-derecho">
+                <h3 class="titulo-seccion">TU PUNTAJE</h3>
+                
+                <div class="marcador aciertos">
+                    <span class="check">✔</span> Aciertos <strong id="contador-aciertos">7</strong>
+                </div>
+                
+                <div class="marcador errores">
+                    <span class="cruz">✖</span> Errores <strong id="contador-errores">3</strong>
+                </div>
+
+                <div class="info-progreso">
+                    <p>Palabra</p>
+                    <span class="numero-progreso" id="palabra-actual">3</span>
+                    <p class="total-progreso">de 10</p>
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- PIE DE PÁGINA: PROGRESO EN ESFERAS -->
+        <footer class="footer-juego">
+            <div class="progreso-esferas">
+                <span class="esfera completada">1</span>
+                <span class="esfera completada">2</span>
+                <span class="esfera activa">3</span>
+                <span class="esfera">4</span>
+                <span class="esfera">5</span>
+                <span class="esfera">6</span>
+                <span class="esfera">7</span>
+                <span class="esfera">8</span>
+                <span class="esfera">9</span>
+                <span class="esfera">10</span>
+            </div>
+            <p class="banner-inferior">¡Sigue así, vas por un gran camino!</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
