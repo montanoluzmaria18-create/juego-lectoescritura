@@ -1,104 +1,210 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Lectoescritura</title>
-    <!-- Fuente tipo cómic/infantil desde Google Fonts -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/style.css">
-    <script src="js/JS.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Palabras que construyen</title>
+  <link rel="preconnect" href="[fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap)" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --shadow:0 10px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.12);
+      --stroke:#1b2a3a;
+      --radius:28px;
+      --gap:8px;
+      --delay-step:0.08s;
+      --pad:10px 14px;
+      --scale:1.06;
+      --ink:#0b2032;
+      --accent:#ff4081;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:32px;
+      background:var(--bg);
+      font-family:'Fredoka', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+      color:#15202b;
+    }
+
+    .logo{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+      text-align:center;
+      user-select:none;
+    }
+
+    .fila{
+      display:flex;
+      align-items:flex-end;
+      gap:var(--gap);
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .burbuja{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:var(--pad);
+      min-width:46px;
+      min-height:52px;
+      border-radius:18px;
+      color:#fff;
+      font-weight:700;
+      font-size:42px;
+      line-height:1;
+      letter-spacing:0.5px;
+      text-shadow:0 2px 0 rgba(0,0,0,0.25);
+      box-shadow:var(--shadow);
+      border:4px solid var(--stroke);
+      transform:scale(0.6) translateY(16px) rotate(-2deg);
+      opacity:0;
+      animation:pop 0.55s cubic-bezier(.2,1.4,.3,1) forwards;
+    }
+
+    /* Variación ligera para que parezca dibujado */
+    .burbuja:nth-child(2n){ transform:scale(0.6) translateY(16px) rotate(2.5deg); }
+    .burbuja:nth-child(3n){ transform:scale(0.6) translateY(16px) rotate(-4deg); }
+
+    .burbuja::after{
+      content:"";
+      position:absolute;
+      inset:-6px -8px;
+      border-radius:22px;
+      border:3px solid rgba(0,0,0,0.15);
+      pointer-events:none;
+    }
+
+    /* Brillo */
+    .burbuja i{
+      position:absolute;
+      top:6px; left:8px;
+      width:38%;
+      height:34%;
+      border-radius:16px;
+      background:rgba(255,255,255,0.55);
+      filter:blur(0.2px);
+      transform:rotate(-18deg);
+    }
+
+    /* Iconitos */
+    .ico{
+      width:28px; height:28px;
+      margin-left:-6px;
+      margin-right:-2px;
+      filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+    }
+
+    .btn{
+      padding:14px 28px;
+      font-size:18px;
+      font-weight:700;
+      color:#fff;
+      background:var(--accent);
+      border:none;
+      border-radius:999px;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      transition:transform .2s ease, background .2s ease;
+      border:3px solid var(--stroke);
+    }
+    .btn:hover{ transform:scale(var(--scale)); background:#e91e63; }
+
+    @keyframes pop{
+      60%{ transform:scale(1.08) translateY(-4px) rotate(0); opacity:1; }
+      100%{ transform:scale(1) translateY(0) rotate(0); opacity:1; }
+    }
+
+    /* Responsivo */
+    @media (max-width:540px){
+      .burbuja{ font-size:32px; min-width:40px; min-height:46px; }
+      .ico{ width:24px; height:24px; }
+    }
+  </style>
 </head>
 <body>
+  <div class="logo" aria-label="PAL4BR4S QU3 C0NSTRUY3N">
+    <div class="fila" id="fila1"></div>
+    <div class="fila" id="fila2"></div>
+  </div>
 
-    <!-- Contenedor principal de todo el tablero del juego -->
-    <div class="tablero-juego">
-        
-        <!-- TÍTULO SUPERIOR -->
-        <header class="header-juego">
-            <h1 class="titulo-principal">JUEGO DE LECTOESCRITURA</h1>
-            <p class="frase-motivadora">¡Escribe la palabra correcta!</p>
-        </header>
+  <button class="btn" onclick="location.href='principal.html'">Ir a la página principal</button>
 
-        <div class="cuerpo-juego">
-            
-            <!-- COLUMNA IZQUIERDA: DIFICULTAD -->
-            <aside class="panel-lateral panel-izquierdo">
-                <h3 class="titulo-seccion azul">ELIGE DIFICULTAD</h3>
-                
-                <div class="opciones-dificultad">
-                    <button class="btn-dif facil activo" data-url="NivelFacil.html">
-                        <span class="estrella">⭐</span> FÁCIL <span>Palabras sencillas</span>
-                    </button>
-                    <button class="btn-dif medio" data-url="NivelMedio.html">
-                        <span class="icono">🎒</span> MEDIO <span>Un poco más difícil</span>
-                    </button>
-                    <button class="btn-dif dificil" data-url="NivelDificil.html">
-                        <span class="icono">🚀</span> DIFÍCIL <span>¡Para campeones!</span>
-                    </button>
-                </div>
+  <script>
+    const linea1 = "PAL4BR4S";
+    const linea2 = "QU3 C0NSTRUY3N";
 
-                <button id="btn-iniciar">INICIAR</button>
-            </aside>
+    // Paleta vibrante estilo caricatura
+    const colores = [
+      "#ff6f61", "#6a5acd", "#ffd700", "#40e0d0", "#ff69b4",
+      "#32cd32", "#ff8c00", "#00ced1", "#8a2be2", "#ff1493",
+      "#2ecc71", "#f39c12", "#e74c3c", "#1abc9c", "#9b59b6"
+    ];
 
-            <!-- COLUMNA CENTRAL: ÁREA DE JUEGO -->
-            <main class="panel-central">
-                <div class="etiqueta-nivel">⭐ NIVEL: FÁCIL</div>
-                
-                <p class="instruccion">Escribe la palabra correcta:</p>
-                
-                <!-- Palabra ejemplo en el recuadro azul -->
-                <div class="palabra-pantalla" id="palabra-pantalla">havion</div>
+    // SVGs pequeños a modo de herramientas/lupa/idea
+    const svgs = {
+      casco:'<svg class="ico" viewBox="0 0 24 24" fill="#ffd54f"><path d="M12 4a7 7 0 0 0-7 7v2H3v4h18v-4h-2v-2a7 7 0 0 0-7-7z"/></svg>',
+      martillo:'<svg class="ico" viewBox="0 0 24 24" fill="#90a4ae"><path d="M2 21l7-7 3 3-7 7H2v-3zM14.7 3.3l6 6-2.8 2.8-6-6L14.7 3.3z"/></svg>',
+      lupa:'<svg class="ico" viewBox="0 0 24 24" fill="#fff"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>',
+      foco:'<svg class="ico" viewBox="0 0 24 24" fill="#ffeb3b"><path d="M9 21h6v-1H9v1zm3-19a7 7 0 0 0-4 12.9V17h8v-2.1A7 7 0 0 0 12 2z"/></svg>'
+    };
 
-                <div class="input-grupo">
-                    <span class="mini-etiqueta">Escribe aquí:</span>
-                    <input type="text" id="palabra-usuario" placeholder="Escribe la palabra correcta...">
-                </div>
+    function crearBurbuja(char, i){
+      const span = document.createElement('span');
+      span.className = 'burbuja';
+      span.textContent = char;
+      span.style.background = colores[i % colores.length];
+      span.style.borderColor = '#1b2a3a';
+      span.style.animationDelay = `${i * 0.08}s`;
+      const shine = document.createElement('i');
+      span.appendChild(shine);
+      return span;
+    }
 
-                <button id="btn-comprobar">✔ COMPROBAR</button>
-            </main>
+    function insertarLinea(texto, contenedorId, offset = 0, adornos = []){
+      const cont = document.getElementById(contenedorId);
+      let idx = 0;
+      for (const ch of texto){
+        if (ch === ' ') {
+          const gap = document.createElement('div');
+          gap.style.width = '14px';
+          cont.appendChild(gap);
+          continue;
+        }
+        const b = crearBurbuja(ch, offset + idx);
+        cont.appendChild(b);
+        idx++;
+        // Inserta adorno si corresponde
+        const deco = adornos.shift?.() || null;
+        if (deco){
+          const wrap = document.createElement('div');
+          wrap.innerHTML = deco;
+          cont.appendChild(wrap.firstChild);
+        }
+      }
+    }
 
-            <!-- COLUMNA DERECHA: PUNTAJE -->
-            <aside class="panel-lateral panel-derecho">
-                <h3 class="titulo-seccion">TU PUNTAJE</h3>
-                
-                <div class="marcador aciertos">
-                    <span class="check">✔</span> Aciertos <strong id="contador-aciertos">7</strong>
-                </div>
-                
-                <div class="marcador errores">
-                    <span class="cruz">✖</span> Errores <strong id="contador-errores">3</strong>
-                </div>
+    // Línea 1 con casco al inicio y martillo al final
+    insertarLinea(linea1, 'fila1', 0, [
+      svgs.casco, null, null, null, null, null, null, svgs.martillo
+    ]);
 
-                <div class="info-progreso">
-                    <p>Palabra</p>
-                    <span class="numero-progreso" id="palabra-actual">3</span>
-                    <p class="total-progreso">de 10</p>
-                </div>
-            </aside>
-
-        </div>
-
-        <!-- PIE DE PÁGINA: PROGRESO EN ESFERAS -->
-        <footer class="footer-juego">
-            <div class="progreso-esferas">
-                <span class="esfera completada">1</span>
-                <span class="esfera completada">2</span>
-                <span class="esfera activa">3</span>
-                <span class="esfera">4</span>
-                <span class="esfera">5</span>
-                <span class="esfera">6</span>
-                <span class="esfera">7</span>
-                <span class="esfera">8</span>
-                <span class="esfera">9</span>
-                <span class="esfera">10</span>
-            </div>
-            <p class="banner-inferior">¡Sigue así, vas por un gran camino!</p>
-        </footer>
-
-    </div>
-
+    // Línea 2 con lupa después de la Q y foco al final
+    insertarLinea(linea2, 'fila2', linea1.length + 2, [
+      null, svgs.lupa, null, null, null, null, null, null, null, null, svgs.foco
+    ]);
+  </script>
 </body>
 </html>
