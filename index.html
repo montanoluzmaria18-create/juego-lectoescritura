@@ -8,130 +8,179 @@
   <link rel="preconnect" href="[fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
   <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap)" rel="stylesheet">
   <style>
-    :root{
-      --bg:#ffffff;
-      --shadow:0 10px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.12);
-      --stroke:#1b2a3a;
-      --radius:28px;
-      --gap:8px;
-      --delay-step:0.08s;
-      --pad:10px 14px;
-      --scale:1.06;
-      --ink:#0b2032;
-      --accent:#ff4081;
-    }
+    :root {
+  --bg: #ffffff;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.12);
+  --stroke: #1b2a3a;
+  --radius: 28px;
+  --gap: 6px; /* Reducido para móvil pequeño */
+  --delay-step: 0.08s;
+  --pad: 8px 10px; /* Reducido para móvil pequeño */
+  --scale: 1.06;
+  --ink: #0b2032;
+  --accent: #ff4081;
+}
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:32px;
-      background:var(--bg);
-      font-family:'Fredoka', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
-      color:#15202b;
-    }
+* { box-sizing: border-box; }
 
-    .logo{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      text-align:center;
-      user-select:none;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px; /* Menor separación en móviles */
+  background: var(--bg);
+  font-family: 'Fredoka', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  color: #15202b;
+}
 
-    .fila{
-      display:flex;
-      align-items:flex-end;
-      gap:var(--gap);
-      flex-wrap:wrap;
-      justify-content:center;
-    }
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  user-select: none;
+}
 
-    .burbuja{
-      position:relative;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:var(--pad);
-      min-width:46px;
-      min-height:52px;
-      border-radius:18px;
-      color:#fff;
-      font-weight:700;
-      font-size:42px;
-      line-height:1;
-      letter-spacing:0.5px;
-      text-shadow:0 2px 0 rgba(0,0,0,0.25);
-      box-shadow:var(--shadow);
-      border:4px solid var(--stroke);
-      transform:scale(0.6) translateY(16px) rotate(-2deg);
-      opacity:0;
-      animation:pop 0.55s cubic-bezier(.2,1.4,.3,1) forwards;
-    }
+.fila {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    /* Variación ligera para que parezca dibujado */
-    .burbuja:nth-child(2n){ transform:scale(0.6) translateY(16px) rotate(2.5deg); }
-    .burbuja:nth-child(3n){ transform:scale(0.6) translateY(16px) rotate(-4deg); }
+/* Base optimizada para Móviles Pequeños (Por debajo de 360px) */
+.burbuja {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad);
+  min-width: 36px;
+  min-height: 42px;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 26px; /* Texto pequeño para que no rompa fila */
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
+  border: 3px solid var(--stroke); /* Borde más delgado en móvil */
+  transform: scale(0.6) translateY(16px) rotate(-2deg);
+  opacity: 0;
+  animation: pop 0.55s cubic-bezier(.2, 1.4, .3, 1) forwards;
+}
 
-    .burbuja::after{
-      content:"";
-      position:absolute;
-      inset:-6px -8px;
-      border-radius:22px;
-      border:3px solid rgba(0,0,0,0.15);
-      pointer-events:none;
-    }
+.burbuja:nth-child(2n) { transform: scale(0.6) translateY(16px) rotate(2.5deg); }
+.burbuja:nth-child(3n) { transform: scale(0.6) translateY(16px) rotate(-4deg); }
 
-    /* Brillo */
-    .burbuja i{
-      position:absolute;
-      top:6px; left:8px;
-      width:38%;
-      height:34%;
-      border-radius:16px;
-      background:rgba(255,255,255,0.55);
-      filter:blur(0.2px);
-      transform:rotate(-18deg);
-    }
+.burbuja::after {
+  content: "";
+  position: absolute;
+  inset: -5px -6px;
+  border-radius: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
 
-    /* Iconitos */
-    .ico{
-      width:28px; height:28px;
-      margin-left:-6px;
-      margin-right:-2px;
-      filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
-    }
+.burbuja i {
+  position: absolute;
+  top: 4px; left: 6px;
+  width: 38%;
+  height: 34%;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  filter: blur(0.2px);
+  transform: rotate(-18deg);
+}
 
-    .btn{
-      padding:14px 28px;
-      font-size:18px;
-      font-weight:700;
-      color:#fff;
-      background:var(--accent);
-      border:none;
-      border-radius:999px;
-      box-shadow:var(--shadow);
-      cursor:pointer;
-      transition:transform .2s ease, background .2s ease;
-      border:3px solid var(--stroke);
-    }
-    .btn:hover{ transform:scale(var(--scale)); background:#e91e63; }
+.ico {
+  width: 20px; height: 20px;
+  margin-left: -4px;
+  margin-right: -1px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .25));
+}
 
-    @keyframes pop{
-      60%{ transform:scale(1.08) translateY(-4px) rotate(0); opacity:1; }
-      100%{ transform:scale(1) translateY(0) rotate(0); opacity:1; }
-    }
+.btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+  border: 3px solid var(--stroke);
+}
+.btn:hover { transform: scale(var(--scale)); background: #e91e63; }
 
-    /* Responsivo */
-    @media (max-width:540px){
-      .burbuja{ font-size:32px; min-width:40px; min-height:46px; }
-      .ico{ width:24px; height:24px; }
-    }
+@keyframes pop {
+  60% { transform: scale(1.08) translateY(-4px) rotate(0); opacity: 1; }
+  100% { transform: scale(1) translateY(0) rotate(0); opacity: 1; }
+}
+
+
+/* ==========================================================================
+   MEDIA QUERIES (CRECIENDO DESDE MÓVIL HACIA ESCRITORIO)
+   ========================================================================== */
+
+/* 📱 Móviles Estándar (Pantallas medianas como iPhone, Samsung Galaxy, etc.) */
+@media (min-width: 360px) {
+  :root { 
+    --gap: 8px; 
+    --pad: 10px 12px;
+  }
+  body { gap: 28px; }
+  .burbuja { font-size: 32px; min-width: 42px; min-height: 48px; border-width: 4px; }
+  .ico { width: 24px; height: 24px; }
+  .btn { padding: 14px 26px; font-size: 17px; }
+}
+
+/* 📱 Móviles Grandes y Tablets Verticales (Phablets / Kindle / iPads Retrato) */
+@media (min-width: 576px) {
+  :root { --pad: 10px 14px; }
+  body { gap: 32px; }
+  .logo { gap: 14px; }
+  .burbuja { font-size: 38px; min-width: 44px; min-height: 50px; }
+  .burbuja::after { inset: -6px -8px; border-radius: 22px; border-width: 3px; }
+  .ico { width: 26px; height: 26px; margin-left: -6px; margin-right: -2px; }
+  .btn { font-size: 18px; padding: 14px 28px; }
+}
+
+/* 🖥️ Tablets Horizontales y Laptops Pequeñas (iPads Paisaje / Netbooks) */
+@media (min-width: 768px) {
+  /* Aquí tus burbujas toman el tamaño máximo original de tu diseño */
+  .burbuja { font-size: 42px; min-width: 46px; min-height: 52px; }
+  .ico { width: 28px; height: 28px; }
+}
+
+/* 🖥️ Computadoras Portátiles / Laptops Estándar (13″ - 15″) */
+@media (min-width: 992px) {
+  body { gap: 40px; }
+  /* Escalado ligero opcional para pantallas de escritorio para que luzca imponente */
+  .burbuja { font-size: 46px; min-width: 50px; min-height: 56px; }
+  .ico { width: 32px; height: 32px; }
+}
+
+/* 🖥️ Pantallas de Escritorio Grandes y Monitores Full HD (1080p) */
+@media (min-width: 1200px) {
+  .burbuja { font-size: 48px; min-width: 54px; min-height: 60px; }
+}
+
+/* 📺 Monitores Ultra-Wide, 2K y Televisores (4K) */
+@media (min-width: 1400px) {
+  body { gap: 48px; }
+  .burbuja { font-size: 52px; min-width: 58px; min-height: 64px; }
+  .btn { font-size: 20px; padding: 16px 32px; }
+}
+
   </style>
 </head>
 <body>
@@ -140,7 +189,7 @@
     <div class="fila" id="fila2"></div>
   </div>
 
-  <button class="btn" onclick="location.href='principal.html'">Ir a la página principal</button>
+  <button class="btn" onclick="location.href='Principal.html'">Ir a la página principal</button>
 
   <script>
     const linea1 = "PAL4BR4S";
